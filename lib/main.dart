@@ -22,7 +22,7 @@ class Home extends StatelessWidget {
     super.key,
   });
 
-  void _toggleSlepmode(String mode) async {
+  void _toggleSleepmode(String mode) async {
     try {
       await Process.start('sudo', ['pmset', 'disablesleep', mode]);
     } catch (e) {
@@ -30,9 +30,9 @@ class Home extends StatelessWidget {
     }
   }
 
-  void _sleep() => _toggleSlepmode('0');
+  void _sleep() => _toggleSleepmode('0');
 
-  void _antisleep() => _toggleSlepmode('1');
+  void _antisleep() => _toggleSleepmode('1');
 
   @override
   Widget build(BuildContext context) {
