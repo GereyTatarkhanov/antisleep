@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 void main() {
   runApp(const MainApp());
@@ -18,11 +19,9 @@ class MainApp extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
-  const Home({
-    super.key,
-  });
+  const Home({super.key});
 
-  void _toggleSleepmode(String mode) async {
+  void _setMode(String mode) async {
     try {
       await Process.start('sudo', ['pmset', 'disablesleep', mode]);
     } catch (e) {
@@ -30,32 +29,49 @@ class Home extends StatelessWidget {
     }
   }
 
-  void _sleep() => _toggleSleepmode('0');
+  void _turnOn() => _setMode('0');
 
-  void _antisleep() => _toggleSleepmode('1');
+  void _turnOff() => _setMode('1');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade800,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 76),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Button(
-              onPressed: _sleep,
-              title: 'Включить сон',
-              color: Colors.green.shade600,
+      backgroundColor: Colors.grey.shade900,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 36),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: SvgPicture.asset(
+                'assets/logo.svg',
+                height: 100,
+                width: 100,
+              ),
             ),
-            const SizedBox(height: 20),
-            Button(
-              onPressed: _antisleep,
-              title: 'Выключить сон',
-              color: Colors.red.shade800,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 76),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Button(
+                    onPressed: _turnOn,
+                    title: 'Turn on Sleep-Mode',
+                    color: Colors.greenAccent.shade400,
+                  ),
+                  const SizedBox(height: 20),
+                  Button(
+                    onPressed: _turnOff,
+                    title: 'Turn off Sleep-Mode',
+                    color: Colors.redAccent.shade400,
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
@@ -83,9 +99,7 @@ class Button extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           title,
-          style: const TextStyle(
-            color: Colors.white,
-          ),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
