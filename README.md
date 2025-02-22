@@ -1,4 +1,7 @@
-# antisleep
+# Antisleep
+
+<img src="https://github.com/user-attachments/assets/bea00808-ba14-4a83-9f67-a24b8a1e7b9c" alt="drawing" width="200"/>
+
 If, like me, you need to close the macbook screen so that it does not go to sleep, and at the same time you do not want to put the laptop on charge (and this is the only way to achieve this using standard settings, or I am blind and did not find it), then you can use the terminal commands are:
 
 sudo pmset disablesleep 1 - ##Disable falling asleep <br>
