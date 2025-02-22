@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   final _storage = Storage.instance;
-  int? _currentMode;
+  int? _initialMode;
   late final AnimationController _turnOnAnimationController;
   late final AnimationController _turnOffAnimationController;
   final _duration = const Duration(milliseconds: 500);
@@ -37,8 +37,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   void _setInitialMode(int? value) {
-    setState(() => _currentMode = value);
-    _currentMode == Mode.SLEEP_MODE_ON.value
+    setState(() => _initialMode = value);
+    _initialMode == Mode.SLEEP_MODE_ON.value
         ? _turnOnAnimationController.forward()
         : _turnOffAnimationController.forward();
   }
@@ -61,7 +61,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         ],
       );
       _storage.setMode(mode: mode);
-      setState(() => _currentMode = mode);
     } catch (e) {
       // АШЫБКА
     }
@@ -96,7 +95,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               ),
             ),
           ),
-          if (_currentMode != null)
+          if (_initialMode != null)
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 76),
